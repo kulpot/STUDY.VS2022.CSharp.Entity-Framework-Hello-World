@@ -6,16 +6,18 @@ using System.Data.Entity;
 
 class Video
 {
+    public int ID { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
 }
 
 class MeContext : DbContext
 {
-    public MeContext() : base(@"")
+    public MeContext() : base(@"Data Source=.;Initial Catalog=KulpotDB;Integrated Security=True")
     {
-        
+
     }
+    public DbSet<Video> Videos { get; set; }
 }
 
 class MainClass
@@ -27,5 +29,8 @@ class MainClass
             Title = "Hello World Entity Framework",
             Description = "Learn about the entity framework"
         };
+        var meContext = new MeContext();
+        meContext.Videos.Add(vid);
+        meContext.SaveChanges();
     }
 }
